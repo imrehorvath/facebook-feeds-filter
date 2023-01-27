@@ -5,7 +5,7 @@ uBlock Origin scriptlet to filter unwanted feed-units on FB by their category.
 
 1. Install the uBlock Origin browser extension to use this scriptlet.
 2. In Settings/Advanced, tick the checkbox "I am an advanced user", click the "gears", that appears.
-3. Add the link to the raw source of the scriptlet to the field: "userResourcesLocation", click "Apply changes".
+3. Add the link to the [raw source of the scriptlet](https://raw.githubusercontent.com/imrehorvath/facebook-feeds-filter/main/facebook-feeds-filter.js "facebook-feeds-filter.js") to the field: "userResourcesLocation", click "Apply changes".
 4. On the "My filters" tab, add the below two filters, click "Apply changes".
 
 ```
