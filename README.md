@@ -13,11 +13,16 @@ facebook.com##+js(facebook-feeds-filter)
 facebook.com##div[role="complementary"] div>span:has(h3[dir="auto"] span:has-text(Sponsored))
 ```
 
-You may want to filter not just the sponsored feed-units, but others like, engagement, etc. Use the `|` to delimit the categories. Eg.
+You may want to filter not just the sponsored feed-units, but others like, engagement, etc. Use the `|` to delimit the categories.
+
+Set the following to filter sponsored and suggested feed-units.
 
 ```
 facebook.com##+js(facebook-feeds-filter,engagement)
-facebook.com##+js(facebook-feeds-filter,engagement|promotion)
 ```
 
-The first row above filters the ads and the suggested feed-units. The second row filters the friend recommendations on top of the previous.
+Or set it, to filter sponsored, suggested and friend-recommendation feed-units.
+
+```
+facebook.com##+js(facebook-feeds-filter,engagement|promotion)
+```
