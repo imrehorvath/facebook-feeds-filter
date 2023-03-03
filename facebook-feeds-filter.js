@@ -10,7 +10,7 @@
     const findNestedProperty = (obj, patt, fn, depth) => {
         const helper = (objs, depth) => {
             for ( const o of objs ) {
-                let keys = Object.keys(o).filter(k => k.match(patt));
+                const keys = Object.keys(o).filter(k => k.match(patt));
                 if ( keys.length === 1 ) {  // We expect a single match
                     return fn(o[keys[0]]);
                 }
