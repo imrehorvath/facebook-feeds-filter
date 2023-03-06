@@ -76,20 +76,6 @@
         });
         observer.observe(document.body, { childList: true, subtree: true });
     };
-    window.addEventListener('load', (event) => {
-        document.addEventListener('click', (event) => {
-            const target = event.target.closest('a');
-            if ( target ) {
-                const url = new URL(target.href);
-                if ( url.searchParams.get('fbclid') ) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    url.searchParams.delete('fbclid');
-                    window.open(url.href, '_blank').focus();
-                }
-            }
-        });
-    });
     if ( document.readyState === 'loading' ) {
         document.addEventListener('DOMContentLoaded', start, { once: true });
     } else {
