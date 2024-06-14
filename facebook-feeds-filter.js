@@ -49,9 +49,11 @@
                 const root = obj.children &&
                       obj.children.props &&
                       obj.children.props.children &&
-                      obj.children.props.children.props;
+                      obj.children.props.children.props &&
+                      obj.children.props.children.props.children &&
+                      obj.children.props.children.props.children.props;
                 if ( root ) {
-                    const category = findNestedProperty(root, /feed/, o => o.category, 4);
+                    const category = findNestedProperty(root, /feed/, o => findNestedProperty(o, /category/, p => p, 1), 4);
                     if ( category ) {
                         processInsertedFeedUnit(node, category);
                     }
