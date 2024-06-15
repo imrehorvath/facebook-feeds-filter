@@ -16,9 +16,8 @@
                 }
             }
             if ( depth ) {
-                return helper(objs.flatMap(o => Object.values(o)
-                                                .filter(o => typeof o === 'object' && 
-                                                        o != null)),
+                return helper(objs.flatMap(o => Object.values(o).filter(o => typeof o === 'object' && 
+                                                                                    o != null)),
                               depth - 1);
             }
             return undefined;
