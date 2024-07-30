@@ -67,6 +67,7 @@
         }
     };
     const start = ( ) => {
+        console.log(`facebook-feeds-filter: started`)
         const style = document.createElement('style');
         style.innerHTML = `
             .${magic} {
