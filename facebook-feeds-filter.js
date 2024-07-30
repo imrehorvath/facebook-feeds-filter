@@ -52,14 +52,11 @@
                       obj.children.props.children.props.children &&
                       obj.children.props.children.props.children.props;
                 if ( root ) {
-                    console.log(`facebook-feeds-filter: root: ${root}`)
                     const category = findNestedProperty(root, 
                                                         /feed/, 
-                                                        o => findNestedProperty(o, /category/, x => x, 0) || 
-                                                            findNestedProperty(o, /story_cat/, x => x, 0),
+                                                        o => findNestedProperty(o, /[^a-z]cat/, x => x, 0),
                                                         4);
                     if ( category ) {
-                        console.log(`facebook-feeds-filter: category: ${category}`)
                         processInsertedFeedUnit(node, category);
                     }
                 }
@@ -67,7 +64,6 @@
         }
     };
     const start = ( ) => {
-        console.log(`facebook-feeds-filter: started`)
         const style = document.createElement('style');
         style.innerHTML = `
             .${magic} {
