@@ -54,8 +54,10 @@
                 if ( root ) {
                     const category = findNestedProperty(root, 
                                                         /feed/, 
-                                                        o => findNestedProperty(o, /story_cat/, x => x, 0), 
+                                                        o => findNestedProperty(o, /category/, x => x, 0) || 
+                                                            findNestedProperty(o, /story_cat/, x => x, 0),
                                                         4);
+                    console.log(`facebook-feeds-filter: category: ${category}`)
                     if ( category ) {
                         processInsertedFeedUnit(node, category);
                     }
