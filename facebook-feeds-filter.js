@@ -52,13 +52,14 @@
                       obj.children.props.children.props.children &&
                       obj.children.props.children.props.children.props;
                 if ( root ) {
+                    console.log(`facebook-feeds-filter: root: ${root}`)
                     const category = findNestedProperty(root, 
                                                         /feed/, 
                                                         o => findNestedProperty(o, /category/, x => x, 0) || 
                                                             findNestedProperty(o, /story_cat/, x => x, 0),
                                                         4);
-                    console.log(`facebook-feeds-filter: category: ${category}`)
                     if ( category ) {
+                        console.log(`facebook-feeds-filter: category: ${category}`)
                         processInsertedFeedUnit(node, category);
                     }
                 }
