@@ -54,7 +54,7 @@
                 if ( root ) {
                     const category = findNestedProperty(root, 
                                                         /feed/, 
-                                                        o => findNestedProperty(o, /[^a-z]cat/, x => x, 0),
+                                                        o => findNestedProperty(o, /^cat|[^a-z]cat/, x => x, 0),
                                                         4);
                     if ( category ) {
                         processInsertedFeedUnit(node, category);
