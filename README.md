@@ -10,7 +10,6 @@ uBlock Origin scriptlet to filter unwanted feed-units on FB by their category.
 
 ```
 facebook.com##+js(facebook-feeds-filter)
-facebook.com##div[role="complementary"] div>span:has(h3[dir="auto"] span:has-text(Sponsored))
 ```
 
 You may want to filter not just the sponsored feed-units, but others like, engagement, etc. Use the `|` to delimit the categories.
@@ -25,4 +24,27 @@ Or set it, to filter sponsored, suggested and friend-recommendation feed-units.
 
 ```
 facebook.com##+js(facebook-feeds-filter,engagement|promotion)
+```
+
+Currently used categories are:
+```
+{
+        UNKNOWN: 0,
+        ORGANIC: 1,
+        ENGAGEMENT: 2,
+        FIXED_POSITION: 3,
+        PROMOTION: 4,
+        SPONSORED: 5,
+        END_OF_FEED_CONTENT: 6,
+        FB_STORIES: 7,
+        HIGH_VALUE_PROMOTION: 8,
+        FB_STORIES_ENGAGEMENT: 9,
+        SHOWCASE: 10,
+        FB_SHORTS: 11,
+        TRENDING: 12,
+        ENGAGEMENT_QP: 13,
+        MULTI_FB_STORIES_TRAY: 14,
+        END_OF_FEED_REELS: 15,
+        FB_SHORTS_FALLBACK: 16
+}
 ```
