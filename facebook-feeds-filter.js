@@ -1,8 +1,8 @@
 /// facebook-feeds-filter.js
 (function() {
     const categoriesToHide = '{{1}}';  // Optional argument to filter posts by their category
-    const setOfCategoriesToHide = (( ) => {
-        if ( categoriesToHide === '' || categoriesToHide === '{{1}}' ) { return new Set(); }
+    const setOfCategoriesToHide = (() => {
+        if (categoriesToHide === '' || categoriesToHide === '{{1}}') return new Set();
         return new Set(categoriesToHide.split(/\s*\|\s*/).map(s => s.toUpperCase()));
     })();
     const categoryMap = {
@@ -41,30 +41,29 @@
             let f = d[i], g = f[0];
             f = f[1];
             f = await sha256(b.concat(f));
-            if ( f === enc )
+            if (f === enc)
                 return {node: node, category: g};
         }
         return undefined;
     };
     const findNestedProperty = (obj, patt, fn, depth) => {
         const helper = (objs, depth) => {
-            for ( const o of objs ) {
+            for (const o of objs) {
                 const keys = Object.keys(o).filter(k => k.match(patt));
-                if ( keys.length === 1 ) {  // We expect a single match
+                if (keys.length === 1)      // We expect a single match
                     return fn(o[keys[0]]);
-                }
             }
-            if ( depth ) {
-                return helper(objs.flatMap(o => Object.values(o).filter(o => typeof o === 'object' && 
-                                                                                    o != null)),
-                              depth - 1);
-            }
+            if (depth)
+                return helper(objs.flatMap(
+                        o => Object.values(o).filter(
+                            o => typeof o === 'object' && o != null)),
+                        depth - 1);
             return undefined;
         };
         return helper(new Array(obj), depth);
     };
     const processInsertedFeedUnit = (feedUnit, category) => {
-        switch ( category ) {
+        switch (category) {
             case 'ORGANIC':
                 // Organic feed units are the regular feed units and gets never filtered
                 break;
@@ -74,61 +73,60 @@
                 break;
             default:
                 // Categories like ENGAGEMENT and PROMOTION gets filtered optionally.
-                if ( setOfCategoriesToHide.has(category) ) {
+                if (setOfCategoriesToHide.has(category))
                     feedUnit.classList.add(magic);
-                }
         }
     };
-    const checkWhetherFeedUnit = ( node ) => {
-        if ( !(node instanceof HTMLDivElement) )
+    const checkWhetherFeedUnit = node => {
+        if (!(node instanceof HTMLDivElement))
             return;
         const ks = Object.keys(node).filter(k => k.startsWith('__reactProps'));
-        if ( ks.length != 1 )
+        if (ks.length != 1)
             return;
         const o = node[ks[0]];
         let down = undefined;
         try {
             down = o.children.props.children.props.children.props;
         } catch(e) {}
-        if ( !down )
+        if (!down)
             return;
         const feed = findNestedProperty(down, /feed/, x => x, 4);
-        if ( !feed )
+        if (!feed)
             return;
         const enc = findNestedProperty(feed, 
                                         /cat.*[sS]ens/,
                                         x => findNestedProperty(x, /enc/, x => x, 0),
                                         0);
         const post_id = findNestedProperty(feed, /post_id/, x => x, 2);
-        if ( enc && post_id ) {
-            fromObfuscatedCategory(node, enc, post_id).then( ctx => {
-                if ( ctx )
+        if (enc && post_id) {
+            fromObfuscatedCategory(node, enc, post_id).then(ctx => {
+                if (ctx)
                     processInsertedFeedUnit(ctx.node, ctx.category);
             });
-        } else if( !enc ) {
+        } else if(!enc) {
             const category = findNestedProperty(feed, 
                                             /cat.*[sS]ens/,
                                             x => findNestedProperty(x, /cat/, x => x, 0),
                                             0);
-            if ( category )
+            if (category)
                 processInsertedFeedUnit(node, category);
         }
     };
-    const start = ( ) => {
+    const start = () => {
         const style = document.createElement('style');
         style.innerHTML = `.${magic} {display: none !important;}`;
         document.head.appendChild(style);
         const observer = new MutationObserver(mutations => {
-            mutations.forEach((mutation) => {
-                mutation.addedNodes.forEach((node) => {
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
                     checkWhetherFeedUnit(node);
                 });
             });
         });
-        observer.observe(document.body, { childList: true, subtree: true });
+        observer.observe(document.body, {childList: true, subtree: true});
     };
-    if ( document.readyState === 'loading' ) {
-        document.addEventListener('DOMContentLoaded', start, { once: true });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start, {once: true});
     } else {
         start();
     }
