@@ -53,7 +53,7 @@
                 if (keys.length === 1)      // We expect a single match
                     return fn(o[keys[0]]);
             }
-            if (depth)
+            if (depth > 0)
                 return helper(objs.flatMap(
                         o => Object.values(o).filter(
                             o => typeof o === 'object' && o != null)),
