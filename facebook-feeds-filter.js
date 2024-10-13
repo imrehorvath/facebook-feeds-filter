@@ -125,9 +125,8 @@
         });
         observer.observe(document.body, {childList: true, subtree: true});
     };
-    if (document.readyState === 'loading') {
+    if (document.readyState === 'loading')
         document.addEventListener('DOMContentLoaded', start, {once: true});
-    } else {
+    else
         start();
-    }
 })();
