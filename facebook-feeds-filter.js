@@ -26,12 +26,14 @@
     };
     const magic = String.fromCharCode(Date.now() % 26 + 97) +
                   Math.floor(Math.random() * 982451653 + 982451653).toString(36);
-    const sha256 = async text => {
+    const sha256 = async (message) => {
         // Source: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
-        const textUint8 = new TextEncoder().encode(text);
-        const hashBuffer = await window.crypto.subtle.digest("SHA-256", textUint8);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+        const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+        const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+        const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+        const hashHex = hashArray
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join(""); // convert bytes to hex string
         return hashHex;
     };
     const fromObfuscatedCategory = async (node, enc, post_id) => {
@@ -54,10 +56,11 @@
                     return fn(o[keys[0]]);
             }
             if (depth > 0)
-                return helper(objs.flatMap(
-                        o => Object.values(o).filter(
-                            o => typeof o === 'object' && o != null)),
-                        depth - 1);
+                return helper(
+                    objs.flatMap(obj =>
+                                Object.values(obj).filter(val =>
+                                    typeof val === 'object' && val != null)),
+                    depth-1);
             return undefined;
         };
         return helper(new Array(obj), depth);
@@ -77,7 +80,7 @@
                     feedUnit.classList.add(magic);
         }
     };
-    const checkWhetherFeedUnit = node => {
+    const checkWhetherFeedUnit = (node) => {
         if (!(node instanceof HTMLDivElement))
             return;
         const ks = Object.keys(node).filter(k => k.startsWith('__reactProps'));
