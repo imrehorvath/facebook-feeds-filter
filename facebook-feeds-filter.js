@@ -61,7 +61,7 @@
                     objs.flatMap(obj =>
                                 Object.values(obj).filter(val =>
                                     typeof val === 'object' && val != null)),
-                    depth-1);
+                    depth - 1);
             return undefined;
         };
         return helper(new Array(obj), depth);
