@@ -24,6 +24,7 @@
         END_OF_FEED_REELS: 15,
         FB_SHORTS_FALLBACK: 16
     };
+    const categoryMapEntries = Object.entries(categoryMap);
     const magic = String.fromCharCode(Date.now() % 26 + 97) +
                   Math.floor(Math.random() * 982451653 + 982451653).toString(36);
     const sha256 = async (message) => {
@@ -38,7 +39,7 @@
     };
     const fromObfuscatedCategory = async (node, enc, post_id) => {
         const b = await sha256(post_id);
-        const d = Object.entries(categoryMap);
+        const d = categoryMapEntries;
         for (let i = 0; i < d.length; i++) {
             let f = d[i], g = f[0];
             f = f[1];
