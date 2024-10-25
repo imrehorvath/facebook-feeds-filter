@@ -97,6 +97,13 @@
         const feed = findNestedProperty(down, /feed/, x => x, 4);
         if (!feed)
             return;
+        // Old, simple case of category representation
+        const category = findNestedProperty(feed, /category/, x => x, 0);
+        if (category && category in categoryMap) {
+            processInsertedFeedUnit(node, category);
+            return;
+        }
+        // Newer, more convoluted case of category representation
         const enc = findNestedProperty(feed, 
                                         /cat.*[sS]ens/,
                                         x => findNestedProperty(x, /enc/, x => x, 0),
