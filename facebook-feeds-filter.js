@@ -111,7 +111,7 @@
         const post_id = findNestedProperty(feed, /post_id/, x => x, 2);
         if (enc && post_id) {
             fromObfuscatedCategory(node, enc, post_id).then(ctx => {
-                if (ctx)
+                if (ctx && ctx.category in categoryMap)
                     processInsertedFeedUnit(ctx.node, ctx.category);
             });
         } else if(!enc) {
@@ -119,7 +119,7 @@
                                             /cat.*[sS]ens/,
                                             x => findNestedProperty(x, /cat/, x => x, 0),
                                             0);
-            if (category)
+            if (category && category in categoryMap)
                 processInsertedFeedUnit(node, category);
         }
     };
