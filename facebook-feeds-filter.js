@@ -37,8 +37,8 @@
             .join(""); // convert bytes to hex string
         return hashHex;
     };
-    const fromObfuscatedCategory = async (node, enc, post_id) => {
-        const b = await sha256(post_id);
+    const fromObfuscatedCategory = async (node, enc, postId) => {
+        const b = await sha256(postId);
         const d = categoryMapEntries;
         for (let i = 0; i < d.length; i++) {
             let f = d[i], g = f[0];
@@ -108,9 +108,9 @@
                                         /cat.*[sS]ens/,
                                         x => findNestedProperty(x, /enc/, x => x, 0),
                                         0);
-        const post_id = findNestedProperty(feed, /post_id/, x => x, 2);
-        if (enc && post_id) {
-            fromObfuscatedCategory(node, enc, post_id).then(ctx => {
+        const postId = findNestedProperty(feed, /post_id/, x => x, 2);
+        if (enc && postId) {
+            fromObfuscatedCategory(node, enc, postId).then(ctx => {
                 if (ctx && ctx.category in categoryMap)
                     processInsertedFeedUnit(ctx.node, ctx.category);
             });
