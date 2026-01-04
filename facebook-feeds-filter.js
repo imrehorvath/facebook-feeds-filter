@@ -69,14 +69,14 @@
     const processInsertedFeedUnit = (feedUnit, category) => {
         switch (category) {
             case 'ORGANIC':
-                // Organic feed units are the regular feed units and gets never filtered
+                // Organic feed units are the regular feed units and never gets filtered
                 break;
             case 'SPONSORED':
-                // Sponsored feed units gets always filtered
+                // Sponsored feed units always gets filtered
                 feedUnit.classList.add(magic);
                 break;
             default:
-                // Categories like ENGAGEMENT and PROMOTION gets filtered optionally.
+                // The rest of the categories only gets filtered when requested by the user
                 if (setOfCategoriesToHide.has(category))
                     feedUnit.classList.add(magic);
         }
