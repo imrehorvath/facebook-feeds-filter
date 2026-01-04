@@ -51,10 +51,10 @@
     };
     const findNestedProperty = (obj, patt, fn, depth) => {
         const helper = (objs, depth) => {
-            for (const o of objs) {
-                const keys = Object.keys(o).filter(k => k.match(patt));
+            for (const obj of objs) {
+                const keys = Object.keys(obj).filter(key => key.match(patt));
                 if (keys.length === 1)      // We expect a single match
-                    return fn(o[keys[0]]);
+                    return fn(obj[keys[0]]);
             }
             if (depth > 0)
                 return helper(
@@ -87,10 +87,10 @@
         const ks = Object.keys(node).filter(k => k.startsWith('__reactProps'));
         if (ks.length != 1)
             return;
-        const o = node[ks[0]];
+        const obj = node[ks[0]];
         let down = undefined;
         try {
-            down = o.children.props.children.props.children.props;
+            down = obj.children.props.children.props.children.props;
         } catch(e) {}
         if (!down)
             return;
