@@ -84,10 +84,10 @@
     const checkWhetherFeedUnit = (node) => {
         if (!(node instanceof HTMLDivElement))
             return;
-        const ks = Object.keys(node).filter(k => k.startsWith('__reactProps'));
-        if (ks.length != 1)
+        const keys = Object.keys(node).filter(key => key.startsWith('__reactProps'));
+        if (keys.length != 1)
             return;
-        const obj = node[ks[0]];
+        const obj = node[keys[0]];
         let down = undefined;
         try {
             down = obj.children.props.children.props.children.props;
