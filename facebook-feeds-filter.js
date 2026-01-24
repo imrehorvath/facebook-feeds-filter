@@ -22,7 +22,11 @@
         ENGAGEMENT_QP: 13,
         MULTI_FB_STORIES_TRAY: 14,
         END_OF_FEED_REELS: 15,
-        FB_SHORTS_FALLBACK: 16
+        FB_SHORTS_FALLBACK: 16,
+        FRIENDLY_FEED_MID_CARD: 17,
+        FRIENDLY_FEED_PROMOTION: 18,
+        INJECTED_STORY: 19,
+        LIMITED_PERSONALIZATION_NOTICE: 20
     };
     const categoryMapEntries = Object.entries(categoryMap);
     const magic = String.fromCharCode(Date.now() % 26 + 97) +
